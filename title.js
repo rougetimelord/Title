@@ -13,18 +13,43 @@ function getCookie(cname) {
     }
 }
 function setCookie() {
-    var a = confirm('Do you want to have a scrolling title on this page?');
-    var d = new Date();
-    //Add 3 days to today
-    d.setTime(d.getTime() + (3 * 24 * 60 * 60 * 1000));
-    d = "expires=" + d.toUTCString();
-    document.cookie = "roBool" + "=" + a + "; " + d;
-    if (!a) {
-        //If client says no tell them how long it'll be gone and make the cookie false
-        alert('Scrolling title disabled for three days');
+    var a;
+    if (!isMobile.any) {
+        a = confirm('Do you want to have a scrolling title on this page?');
+        var d = new Date();
+        //Add 3 days to today
+        d.setTime(d.getTime() + (3 * 24 * 60 * 60 * 1000));
+        d = "expires=" + d.toUTCString();
+        document.cookie = "roBool" + "=" + a + "; " + d;
+        if (!a) {
+            //If client says no tell them how long it'll be gone and make the cookie false
+            alert('Scrolling title disabled for three days');
+        }
     }
+    else
+        a = false;
     //Return whatever
     return a;
+}
+var isMobile = {
+    Android: function () {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function () {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function () {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function () {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function () {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function () {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
 }
 function checkCookie() {
     var en = getCookie("roBool");
@@ -40,20 +65,14 @@ function checkCookie() {
     return r;
 }
 function titleChange(a, b) {
-    var title = document.getElementsByTagName("title")[0];
-    var titleStr = typeof (a) != "undefined" ? a.toString() + " " : "Rouge's title script" + " ";
-    var count = titleStr.length - 1;
-    var titleTemp;
-    var ms = typeof (b) != "undefined" ? b : 300;
-    var i = 0;
-    var go = checkCookie();
-    var func = function () {
-        titleTemp = "";
+    var title = document.getElementsByTagName("title")[0], titleStr = typeof (a) != "undefined" ? a.toString() + " " : "Rouge's title script" + " ", count = titleStr.length - 1;
+    var ms = typeof (b) != "undefined" ? b : 300, i = 0, go = checkCookie(), func = function () {
+        var titleTemp = "";
         for (var r = i; r <= i + count - 1; r++) {
-            titleTemp += titleStr[r] == " " ? "&nbsp" : titleStr[r];
+            titleTemp += (titleStr[r] == " ") ? "&nbsp" : titleStr[r];
         }
         title.innerHTML = titleTemp;
-        i = i + count >= titleStr.length ? 0 : i + 1;
+        i = (i + count >= titleStr.length) ? 0 : i + 1;
     };
     /*title gets the title element,
 	titleStr is the text that gets played through,
