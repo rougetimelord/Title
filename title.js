@@ -14,7 +14,7 @@ function getCookie(cname) {
 }
 function setCookie() {
     var a;
-    if (!isMobile.any) {
+    if (!isMobile()) {
         a = confirm('Do you want to have a scrolling title on this page?');
         var d = new Date();
         //Add 3 days to today
@@ -32,24 +32,7 @@ function setCookie() {
     return a;
 }
 var isMobile = {
-    Android: function () {
-        return navigator.userAgent.match(/Android/i);
-    },
-    BlackBerry: function () {
-        return navigator.userAgent.match(/BlackBerry/i);
-    },
-    iOS: function () {
-        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-    },
-    Opera: function () {
-        return navigator.userAgent.match(/Opera Mini/i);
-    },
-    Windows: function () {
-        return navigator.userAgent.match(/IEMobile/i);
-    },
-    any: function () {
-        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-    }
+        return: navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobi|BB10; Touch/i)
 }
 function checkCookie() {
     var en = getCookie("roBool");
