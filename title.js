@@ -31,8 +31,8 @@ function setCookie() {
     //Return whatever
     return a;
 }
-var isMobile = {
-        return: navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobi|BB10; Touch/i)
+var isMobile = function(){
+        return navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobi|BB10; Touch/i)
 }
 function checkCookie() {
     var en = getCookie("roBool");
