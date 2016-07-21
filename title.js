@@ -12,6 +12,9 @@ function getCookie(cname) {
         }
     }
 }
+var isMobile = function(){
+        return navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobi|BB10; Touch/i)
+}
 function setCookie() {
     var a;
     if (!isMobile()) {
@@ -30,9 +33,6 @@ function setCookie() {
         a = false;
     //Return whatever
     return a;
-}
-var isMobile = function(){
-        return navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobi|BB10; Touch/i)
 }
 function checkCookie() {
     var en = getCookie("roBool");
@@ -72,7 +72,7 @@ function titleChange(a, b) {
         console.log("You disabled this script at some point");
         throw '';
     }
-    var loop = setInterval(function () { func() }, ms);
+    var loop = setInterval(func, ms);
     //var stop = function(){clearInterval(loop); loop = 0};
     //setTimeout(stop(), 10000);
     //window.onfocus = loop();
